@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --green: #24764b;
+    --green-hover: #1e633e;
+    --dark: #173d2b;
+    --mint: #e7f3e8;
+    --paper: #ffffff;
+    --bg: #f5f8f1;
+    --muted: #78877c;
+    --line: #e6ece4;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--dark);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float {
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  background-color: #24764b;
+  border-radius: 50%;
+  animation: bounce 0.6s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d6e2d7;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #adc2af;
+}

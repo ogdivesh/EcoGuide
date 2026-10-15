@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f9f6" />
+    <title>EcoGuide - Your Green Assistant</title>
+    <meta name="description" content="Your quiet guide to sustainable living, conservation, and eco-habits in all Indian languages and English." />
+    <meta property="og:title" content="EcoGuide - Your Green Assistant" />
+    <meta property="og:description" content="Your quiet guide to sustainable living, conservation, and eco-habits in all Indian languages and English." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --green: #205c3b;
+        --green-hover: #1a4a30;
+        --mint: #e7f2e9;
+        --dark: #163a25;
+        --bg: #f7f9f6;
+        --border: #e2eae1;
+        --muted: #708475;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        background-color: var(--bg);
+        color: var(--dark);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+      .app { min-height: 100vh; display: flex; flex-direction: column; }
+      .header {
+        height: 64px;
+        padding: 0 6%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.85);
+        border-bottom: 1px solid #e5ebe4;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(12px);
+      }
+      .brand { display: flex; align-items: center; gap: 10px; }
+      .logo {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        background: var(--mint);
+        border-radius: 12px;
+        font-size: 18px;
+      }
+      .brand h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; color: var(--dark); }
+      .header-right { display: flex; align-items: center; gap: 10px; }
+      .status-pill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 500;
+        color: #55695a;
+        background: #edf4ee;
+        padding: 5px 12px;
+        border-radius: 20px;
+      }
+      .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+      .main {
+        width: min(760px, 100%);
+        margin: 0 auto;
+        padding: 24px 16px 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .hero { text-align: center; max-width: 500px; margin: 16px auto 28px; }
+      .hero-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--mint);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 12px;
+      }
+      .hero h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 600; letter-spacing: -0.6px; margin-bottom: 8px; }
+      .hero p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+      .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 24px; }
+      .card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        text-align: left;
+        transition: all 0.2s;
+      }
+      .card:hover { border-color: #a8cbb0; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(32,92,59,0.04); }
+      .card .icon { font-size: 22px; flex-shrink: 0; }
+      .card h3 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+      .card p { font-size: 12px; color: var(--muted); line-height: 1.4; }
+      .lang-bar { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 8px; }
+      .lang-btn {
+        background: white;
+        border: 1px solid #d8e4d9;
+        color: #455c4c;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        transition: all 0.15s;
+      }
+      .lang-btn:hover, .lang-btn.active { background: var(--green); color: white; border-color: var(--green); }
+      .chat-feed { display: flex; flex-direction: column; gap: 14px; padding: 12px 0 24px; }
+      .msg { display: flex; gap: 12px; align-items: flex-start; }
+      .msg.user { justify-content: flex-end; }
+      .msg-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 12px;
+        background: var(--mint);
+        color: var(--green);
+        display: grid;
+        place-items: center;
+        font-size: 15px;
+        flex-shrink: 0;
+      }
+      .msg-bubble {
+        max-width: 82%;
+        padding: 14px 16px;
+        border-radius: 18px;
+        font-size: 14px;
+        line-height: 1.7;
+        word-break: break-word;
+      }
+      .msg.user .msg-bubble {
+        background: var(--green);
+        color: white;
+        border-top-right-radius: 4px;
+      }
+      .msg.bot .msg-bubble {
+        background: white;
+        border: 1px solid var(--border);
+        border-top-left-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      }
+      .composer-box { position: sticky; bottom: 0; background: var(--bg); padding: 8px 0 12px; }
+      .composer-inner {
+        background: white;
+        border: 1px solid #d8e2d8;
+        border-radius: 18px;
+        padding: 6px 8px 6px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 20px rgba(20,50,30,0.04);
+        transition: border-color 0.2s;
+      }
+      .composer-inner:focus-within { border-color: #7fb38d; }
+      .composer-inner input {
+        flex: 1;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 14px;
+        color: var(--dark);
+      }
+      .submit-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: var(--green);
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        transition: background 0.15s;
+      }
+      .submit-btn:hover { background: var(--green-hover); }
+      .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+      .subtext { text-align: center; font-size: 11px; color: #788c7d; margin-top: 8px; }
+      @media (max-width: 600px) {
+        .cards { grid-template-columns: 1fr; }
+        .hero h2 { font-size: 22px; }
+        .msg-bubble { max-width: 90%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="app">
+        <header class="header">
+          <div class="brand">
+            <div class="logo">🌿</div>
+            <h1>EcoGuide</h1>
+          </div>
+          <div class="header-right">
+            <div class="status-pill">
+              <span class="status-dot"></span>
+              <span>Online</span>
+            </div>
+          </div>
+        </header>
+
+        <main class="main">
+          <div id="welcomeWrap">
+            <div class="hero">
+              <div class="hero-icon">🌍</div>
+              <h2>Small questions, greener choices.</h2>
+              <p>Your quiet guide to sustainable living, conservation, and daily eco-habits. Ask in any Indian language or English.</p>
+            </div>
+
+            <div class="cards" id="cardsGrid">
+              <button class="card" onclick="window.sendPrompt('What are simple and practical ways to reduce single-use plastic waste at home?')">
+                <span class="icon">♻️</span>
+                <div>
+                  <h3>Plastic & Waste</h3>
+                  <p>Simple swaps to reduce single-use plastic</p>
+                </div>
+              </button>
+              <button class="card" onclick="window.sendPrompt('Ghar par rozana paani bachane ke best practical aur aasan tarike batayein.')">
+                <span class="icon">💧</span>
+                <div>
+                  <h3>Save Water Daily</h3>
+                  <p>Practical habits to conserve water</p>
+                </div>
+              </button>
+              <button class="card" onclick="window.sendPrompt('How can I make my home more energy-efficient and save on electricity?')">
+                <span class="icon">⚡</span>
+                <div>
+                  <h3>Energy & Electricity</h3>
+                  <p>Lower your power bill and footprint</p>
+                </div>
+              </button>
+              <button class="card" onclick="window.sendPrompt('दैनिक रसोई के कचरे (wet waste) से घर पर खाद कैसे बनाएं?')">
+                <span class="icon">🍂</span>
+                <div>
+                  <h3>Kitchen Composting</h3>
+                  <p>Turn food scraps into rich garden soil</p>
+                </div>
+              </button>
+            </div>
+
+            <div class="lang-bar" id="langBar">
+              <button class="lang-btn active" data-lang="auto">Auto 🌐</button>
+              <button class="lang-btn" data-lang="Hindi">हिन्दी</button>
+              <button class="lang-btn" data-lang="Hinglish">Hinglish</button>
+              <button class="lang-btn" data-lang="English">English</button>
+              <button class="lang-btn" data-lang="Bengali">বাংলা</button>
+              <button class="lang-btn" data-lang="Tamil">தமிழ்</button>
+              <button class="lang-btn" data-lang="Telugu">తెలుగు</button>
+              <button class="lang-btn" data-lang="Marathi">मराठी</button>
+            </div>
+          </div>
+
+          <div class="chat-feed" id="chatFeed" style="display:none;"></div>
+
+          <div class="composer-box">
+            <form class="composer-inner" id="composerForm">
+              <input
+                id="queryInput"
+                type="text"
+                placeholder="Ask anything about sustainable living or eco-habits..."
+                autocomplete="off"
+              />
+              <button class="submit-btn" id="queryBtn" type="submit">↑</button>
+            </form>
+            <p class="subtext">EcoGuide · Responds in your selected language or script</p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- React App Loader for Vite environment -->
+    <script type="module">
+      import('./src/main.tsx').catch(() => {
+        console.info('Vite dev environment not detected. Standalone EcoGuide active.');
+      });
+    </script>
+
+    <!-- Standalone interactive engine for VS Code & GitHub Pages -->
+    <script>
+      (function() {
+        let currentLang = 'auto';
+        let busy = false;
+
+        window.sendPrompt = function(q) {
+          const inp = document.getElementById('queryInput');
+          if (inp) {
+            inp.value = q;
+            doAsk(q);
+          }
+        };
+
+        function appendMessage(text, role) {
+          const feed = document.getElementById('chatFeed');
+          const welcome = document.getElementById('welcomeWrap');
+          if (welcome) welcome.style.display = 'none';
+          if (feed) feed.style.display = 'flex';
+
+          const msg = document.createElement('div');
+          msg.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+
+          if (role !== 'user') {
+            const av = document.createElement('div');
+            av.className = 'msg-avatar';
+            av.textContent = '🌿';
+            msg.appendChild(av);
+          }
+
+          const bubble = document.createElement('div');
+          bubble.className = 'msg-bubble';
+          bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>');
+          msg.appendChild(bubble);
+
+          feed.appendChild(msg);
+          msg.scrollIntoView({ behavior: 'smooth' });
+          return msg;
+        }
+
+        async function doAsk(text) {
+          if (busy || !text || !text.trim()) return;
+          const root = document.getElementById('root');
+          if (root && root.dataset.reactMounted) return;
+
+          busy = true;
+          const btn = document.getElementById('queryBtn');
+          const inp = document.getElementById('queryInput');
+          if (btn) btn.disabled = true;
+          if (inp) inp.value = '';
+
+          appendMessage(text, 'user');
+
+          try {
+            const res = await fetch('/api/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: text, stream: false, language: currentLang })
+            });
+            if (res.ok) {
+              const data = await res.json();
+              appendMessage(data.reply || 'No response', 'bot');
+            } else {
+              appendMessage('Unable to connect. Please make sure the server is running.', 'bot');
+            }
+          } catch (e) {
+            appendMessage('Connection error. If running in static mode, please run `npm run dev` in your terminal.', 'bot');
+          } finally {
+            busy = false;
+            if (btn) btn.disabled = false;
+          }
+        }
+
+        const form = document.getElementById('composerForm');
+        if (form) {
+          form.onsubmit = function(e) {
+            e.preventDefault();
+            const val = document.getElementById('queryInput').value.trim();
+            if (val) doAsk(val);
+          };
+        }
+
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(function(b) {
+          b.onclick = function() {
+            langBtns.forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            currentLang = b.getAttribute('data-lang') || 'auto';
+          };
+        });
+      })();
+    </script>
+  </body>
+</html>

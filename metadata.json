@@ -1,0 +1,6 @@
+{
+  "name": "EcoGuide - Your Green Assistant",
+  "description": "An environmental awareness assistant powered by Gemini AI to help you make greener choices, answer climate questions, and practice sustainable living.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
